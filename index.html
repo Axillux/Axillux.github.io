@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивная Гипотеза Гольдбаха</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Chosen Palette: Calm Harmony -->
+    <!-- Application Structure Plan: Plan: A single-page app with 4 thematic sections: 1) Definition (What is Goldbach's Conjecture?), 2) Interactive Tester (User inputs an even number > 2, JS finds and displays prime pairs), 3) Visualization (A Chart.js bar chart showing the *count* of prime pairs for even numbers up to 100, showing the trend), 4) Status (Explaining the conjecture is unproven but widely believed). This structure turns an abstract question into an interactive educational tool, allowing the user to understand, then explore, visualize, and finally learn the current scientific status. -->
+    <!-- Visualization & Content Choices: Summary:
+1. Report Info: The Conjecture itself. Goal: Inform. Method: Formatted text (HTML/Tailwind). Interaction: None. Justification: Clear definition is necessary first.
+2. Report Info: Examples (e.g., 10 = 3+7). Goal: Explore. Method: Interactive input field and dynamic text output area. Interaction: User input triggers JS function (`findPrimePairs`) which updates a results `div`. Justification: This is the core interactive loop, letting the user test the conjecture themselves.
+3. Report Info: Trend of partitions. Goal: Analyze Change. Method: Bar Chart (Chart.js on Canvas). Interaction: Chart displays the *count* of partitions for even numbers up to 100. Justification: Visually reinforces the conjecture by showing that the number of pairs doesn't drop to zero; it generally increases.
+4. Report Info: Status of the problem. Goal: Inform. Method: Formatted text (HTML/Tailwind). Interaction: None. Justification: Provides crucial context on this being an unsolved problem. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800">
+
+    <main class="container mx-auto max-w-5xl p-4 sm:p-8">
+
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-teal-700">
+                Интерактивное исследование гипотезы Гольдбаха
+            </h1>
+            <p class="text-lg text-stone-600 mt-2">
+                "Может ли каждое четное число больше 2 быть представлено как сумма двух простых чисел?"
+            </p>
+        </header>
+
+        <div class="space-y-8">
+
+            <section id="definition" class="p-6 bg-white rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-3 text-teal-800">Что это за гипотеза?</h2>
+                <div class="space-y-4 text-stone-700">
+                    <p>
+                        Это <strong class="font-semibold">Гипотеза Гольдбаха</strong>, одна из старейших и самых известных нерешенных проблем в теории чисел. Она была сформулирована Кристианом Гольдбахом в 1742 году в письме Леонарду Эйлеру.
+                    </p>
+                    <p>
+                        В своей современной форме (так называемая "сильная" гипотеза) она утверждает:
+                    </p>
+                    <blockquote class="border-l-4 border-teal-500 pl-4 py-2 bg-teal-50 rounded">
+                        <p class="font-semibold italic">
+                            Каждое четное целое число, большее 2, можно представить в виде суммы двух простых чисел.
+                        </p>
+                    </blockquote>
+                    <p>
+                        Простое число — это число, которое делится только на 1 и на само себя (например: 2, 3, 5, 7, 11, 13...). Число 1 не является простым.
+                    </p>
+                    <p>
+                        Например:
+                    </p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li><span class="font-semibold">4</span> = 2 + 2</li>
+                        <li><span class="font-semibold">6</span> = 3 + 3</li>
+                        <li><span class="font-semibold">8</span> = 3 + 5</li>
+                        <li><span class="font-semibold">10</span> = 3 + 7 (а также 5 + 5)</li>
+                        <li><span class="font-semibold">20</span> = 3 + 17 (а также 7 + 13)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="tester" class="p-6 bg-white rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-3 text-teal-800">Проверьте сами</h2>
+                <p class="mb-4 text-stone-700">
+                    Введите любое четное число от 4 до 2000, чтобы найти все пары простых чисел, которые в сумме дают это число. Это позволит вам лично протестировать гипотезу на конкретных примерах.
+                </p>
+                <div class="flex flex-wrap items-end gap-4">
+                    <div class="flex-grow">
+                        <label for="evenNumber" class="block text-sm font-medium text-stone-600 mb-1">Введите четное число (4 - 2000):</label>
+                        <input type="number" id="evenNumber" min="4" max="2000" step="2" placeholder="Например: 42" class="w-full px-4 py-2 border border-stone-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500">
+                    </div>
+                    <button id="checkButton" class="px-6 py-2 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 transition duration-200">
+                        Найти пары
+                    </button>
+                </div>
+                <div id="resultsWrapper" class="mt-6">
+                    <h3 class="text-lg font-semibold text-stone-800">Результаты:</h3>
+                    <div id="results" class="mt-2 p-4 bg-stone-100 rounded-lg min-h-[120px] max-h-[200px] overflow-y-auto text-stone-700 font-mono text-sm">
+                        <p class="italic text-stone-500">Здесь появятся пары простых чисел...</p>
+                    </div>
+                    <p id="error" class="text-red-600 mt-2 hidden"></p>
+                </div>
+            </section>
+
+            <section id="visualization" class="p-6 bg-white rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-3 text-teal-800">Визуализация: Количество пар</h2>
+                <p class="mb-4 text-stone-700">
+                    Этот график показывает, сколько различных пар простых чисел существует для каждого четного числа от 4 до 100. Обратите внимание: гипотеза будет опровергнута, если какой-либо столбец упадет до нуля (но, как видите, этого не происходит).
+                </p>
+                <div class="chart-container">
+                    <canvas id="partitionsChart"></canvas>
+                </div>
+            </section>
+
+            <section id="status" class="p-6 bg-white rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-3 text-teal-800">Текущий статус: Доказано?</h2>
+                <div class="space-y-4 text-stone-700">
+                    <p>
+                        <strong class="font-semibold text-red-700">Нет, гипотеза до сих пор не доказана.</strong>
+                    </p>
+                    <p>
+                        Несмотря на более чем 280 лет усилий величайших умов, она остается одной из самых известных открытых проблем в математике.
+                    </p>
+                    <ul class="list-disc list-inside ml-4 space-y-1">
+                        <li>
+                            <strong class="font-semibold">Проверка:</strong> Гипотеза была проверена компьютерами для всех четных чисел вплоть до <span class="font-semibold">4 x 10<sup>18</sup></span> (это 4 квинтиллиона). Ни одного контрпримера найдено не было.
+                        </li>
+                        <li>
+                            <strong class="font-semibold">"Слабая" гипотеза:</strong> Существует также "слабая" или "тернарная" гипотеза Гольдбаха, которая утверждает, что каждое нечетное число больше 5 можно представить в виде суммы *трех* простых чисел. Эта гипотеза была <strong class="font-semibold text-green-700">полностью доказана</strong> в 2013 году перуанским математиком Харальдом Хельфготтом.
+                        </li>
+                        <li>
+                            <strong class="font-semibold">Значимость:</strong> Доказательство "сильной" гипотезы (которую вы исследуете здесь) автоматически докажет и "слабую". Однако обратное неверно.
+                        </li>
+                    </ul>
+                    <p>
+                        На сегодняшний день "сильная" гипотеза Гольдбаха остается нерешенной задачей, ожидающей нового прорыва в математике.
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const MAX_PRIME = 2000;
+            let primes = new Set();
+            let primeList = [];
+            let partitionsChart = null;
+
+            function sieveOfEratosthenes(n) {
+                const isPrime = new Array(n + 1).fill(true);
+                isPrime[0] = isPrime[1] = false;
+                for (let p = 2; p * p <= n; p++) {
+                    if (isPrime[p]) {
+                        for (let i = p * p; i <= n; i += p)
+                            isPrime[i] = false;
+                    }
+                }
+                for (let p = 2; p <= n; p++) {
+                    if (isPrime[p]) {
+                        primes.add(p);
+                        primeList.push(p);
+                    }
+                }
+            }
+
+            function findPrimePairs(num) {
+                const pairs = [];
+                for (const p of primeList) {
+                    if (p > num / 2) {
+                        break;
+                    }
+                    const complement = num - p;
+                    if (primes.has(complement)) {
+                        pairs.push([p, complement]);
+                    }
+                }
+                return pairs;
+            }
+
+            function updateTester() {
+                const numberInput = document.getElementById('evenNumber');
+                const resultsDiv = document.getElementById('results');
+                const errorDiv = document.getElementById('error');
+                
+                let num = parseInt(numberInput.value, 10);
+                
+                errorDiv.classList.add('hidden');
+                resultsDiv.innerHTML = '';
+
+                if (isNaN(num)) {
+                    errorDiv.textContent = 'Пожалуйста, введите число.';
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+                if (num < 4 || num > MAX_PRIME) {
+                    errorDiv.textContent = `Число должно быть в диапазоне от 4 до ${MAX_PRIME}.`;
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+                if (num % 2 !== 0) {
+                    errorDiv.textContent = 'Число должно быть четным.';
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+
+                const pairs = findPrimePairs(num);
+
+                if (pairs.length === 0) {
+                    resultsDiv.innerHTML = `<p class="text-red-600">Для числа ${num} не найдено пар простых чисел. (Это опровергло бы гипотезу!)</p>`;
+                } else {
+                    resultsDiv.innerHTML = pairs.map(pair => 
+                        `<span class="inline-block bg-white shadow-sm rounded px-2 py-1 m-1">${pair[0]} + ${pair[1]}</span>`
+                    ).join('');
+                }
+            }
+
+            function initChart() {
+                const ctx = document.getElementById('partitionsChart').getContext('2d');
+                const labels = [];
+                const data = [];
+
+                for (let i = 4; i <= 100; i += 2) {
+                    labels.push(i);
+                    const pairs = findPrimePairs(i);
+                    data.push(pairs.length);
+                }
+
+                if (partitionsChart) {
+                    partitionsChart.destroy();
+                }
+
+                partitionsChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Количество пар простых чисел',
+                            data: data,
+                            backgroundColor: 'rgba(13, 148, 136, 0.6)',
+                            borderColor: 'rgba(13, 148, 136, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(context) {
+                                        return `Число: ${context[0].label}`;
+                                    },
+                                    label: function(context) {
+                                        return `Кол-во пар: ${context.raw}`;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Количество пар'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Четное число'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            sieveOfEratosthenes(MAX_PRIME);
+            initChart();
+            
+            document.getElementById('checkButton').addEventListener('click', updateTester);
+            document.getElementById('evenNumber').addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    updateTester();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
