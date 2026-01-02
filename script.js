@@ -4,15 +4,15 @@ const translations = {
         "hero-sub": "Перевожу сайты и делаю веб-страницы. Быстро и аккуратно.",
         "btn-projects": "Смотреть проекты",
         "btn-contact": "Связаться",
-        "about-title": "Про меня",
+        "about-title": "Обо мне",
         "skill-1": "Пишу понятно",
         "skill-2": "Делаю <del>аккуратно</del>",
         "skill-3": "Знаю 5 языков",
         "services-title": "Что я делаю",
         "serv-1": "Перевод сайтов",
         "serv-2": "Локализация",
-        "serv-3": "Сделать сайт легкий",
-        "price-text": "Напиши задачу и я предлогу или ты предложешь мне все равно цену",
+        "serv-3": "Создание легких сайтов",
+        "price-text": "Опиши задачу, и я назову цену, или предложи свою, мне все равно.",
         "projects-title": "Мои проекты",
         "proj-mcreations": "Перевод и локализация сайта.",
         "proj-hosts": "Работаю над проектом",
@@ -141,4 +141,5 @@ window.addEventListener('scroll', () => {
         nav.classList.remove('nav-hidden');
     }
     lastScroll = currentScroll;
+
 });
