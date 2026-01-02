@@ -1,6 +1,6 @@
 const translations = {
     ru: {
-        "hero-title": "Axillux — переводчик и кодер",
+        "hero-title": "Axillux - переводчик и кодер",
         "hero-sub": "Перевожу сайты и делаю веб-страницы. Быстро и аккуратно.",
         "btn-projects": "Смотреть проекты",
         "btn-contact": "Связаться",
@@ -20,7 +20,7 @@ const translations = {
         "contact-sub": "Отвечаю обычно в течение дня"
     },
     en: {
-        "hero-title": "Axillux — Translator & Coder",
+        "hero-title": "Axillux - Translator & Coder",
         "hero-sub": "I translate websites and build web pages. Fast and clean.",
         "btn-projects": "See Projects",
         "btn-contact": "Contact",
@@ -40,7 +40,7 @@ const translations = {
         "contact-sub": "I usually reply within a day"
     },
     kz: {
-        "hero-title": "Axillux — аудармашы және кодер",
+        "hero-title": "Axillux - аудармашы және кодер",
         "hero-sub": "Сайттарды аударамын және жасаймын. Жылдам әрі ұқыпты.",
         "btn-projects": "Жобалар",
         "btn-contact": "Хабарласу",
@@ -60,7 +60,7 @@ const translations = {
         "contact-sub": "Әдетте бір күн ішінде жауап беремін"
     },
     de: {
-        "hero-title": "Axillux — Übersetzer & Coder",
+        "hero-title": "Axillux - Übersetzer & Coder",
         "hero-sub": "Ich übersetze Webseiten und erstelle Webpages. Schnell und sauber.",
         "btn-projects": "Projekte",
         "btn-contact": "Kontakt",
@@ -72,7 +72,7 @@ const translations = {
         "serv-1": "Webseiten-Übersetzung",
         "serv-2": "Lokalisierung",
         "serv-3": "Leichte Webseiten erstellen",
-        "price-text": "Schreib die Aufgabe, ich nenne einen Preis oder du – mir egal.",
+        "price-text": "Schreib die Aufgabe, ich nenne einen Preis oder du - mir egal.",
         "projects-title": "Projekte",
         "proj-mcreations": "Übersetzung und Lokalisierung.",
         "proj-hosts": "Arbeite am Projekt",
@@ -80,7 +80,7 @@ const translations = {
         "contact-sub": "Ich antworte normalerweise innerhalb eines Tages"
     },
     ua: {
-        "hero-title": "Axillux — перекладач та кодер",
+        "hero-title": "Axillux - перекладач та кодер",
         "hero-sub": "Перекладаю сайти та створюю веб-сторінки. Швидко та акуратно.",
         "btn-projects": "Проєкти",
         "btn-contact": "Зв'язатися",
@@ -92,7 +92,7 @@ const translations = {
         "serv-1": "Переклад сайтів",
         "serv-2": "Локалізація",
         "serv-3": "Зробити легкий сайт",
-        "price-text": "Напиши завдання, і я запропоную ціну, або ти запропонуєш – мені байдуже.",
+        "price-text": "Напиши завдання, і я запропоную ціну, або ти запропонуєш - мені байдуже.",
         "projects-title": "Мої проєкти",
         "proj-mcreations": "Переклад та локалізація сайту.",
         "proj-hosts": "Працюю над проєктом",
