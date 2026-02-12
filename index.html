@@ -1,109 +1,125 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html class="dark" lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="google-adsense-account" content="ca-pub-7969525020847265">
     <title>Axillux</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#050505",
+                        "text-main": "#ededed",
+                        "text-muted": "#888888"
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.125rem",
+                        lg: "0.25rem",
+                        xl: "0.5rem",
+                        full: "0.75rem"
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        ::selection {
+            background-color: #135bec;
+            color: white;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
-<body>
 
-    <nav class="bubble-nav">
-        <div class="logo">Axillux</div>
-        <div class="nav-controls">
-            <select id="lang-select">
-                <option value="ru">RU</option>
-                <option value="en">EN</option>
-                <option value="kz">KZ</option>
-                <option value="de">DE</option>
-                <option value="ua">UA</option>
-            </select>
-        </div>
-    </nav>
-
-    <main>
-        <section class="hero">
-            <div class="hero-text-box">
-                <span class="sticker rotate-left">Hello!</span>
-                <h1 data-key="hero-title">Axillux — переводчик и кодер</h1>
-                <p data-key="hero-sub">Перевожу сайты и делаю веб-страницы. Быстро и аккуратно.</p>
-                <div class="btn-group">
-                    <a href="#projects" class="toon-btn btn-yellow" data-key="btn-projects">Смотреть проекты</a>
-                    <a href="#contacts" class="toon-btn btn-pink" data-key="btn-contact">Связаться</a>
-                </div>
+<body class="bg-background-dark font-display text-text-main h-screen w-full overflow-hidden flex flex-col items-center justify-center relative">
+    <main class="relative z-10 w-full max-w-[1600px] h-full flex flex-col md:flex-row">
+        <section class="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-end md:justify-center items-start md:items-end px-8 md:px-16 pb-8 md:pb-0 border-b border-white/10 md:border-b-0 md:border-r md:border-white/20">
+            <div class="text-left md:text-right space-y-2">
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight leading-none text-white">
+                    axillux
+                </h1>
+                <p id="roleText" class="text-xl md:text-2xl text-text-muted lowercase tracking-wide transition-all duration-300">
+                    translator
+                </p>
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="title-blob" data-key="about-title">Про меня</h2>
-            <div class="cloud-grid">
-                <div class="cloud-card c-blue" data-key="skill-1">Пишу понятно</div>
-                <div class="cloud-card c-green" data-key="skill-2">Делаю <del>аккуратно</del></div>
-                <div class="cloud-card c-pink" data-key="skill-3">Знаю 5 языков</div>
-            </div>
-            
-            <div class="languages-row">
-                <span class="pill">RU</span>
-                <span class="pill">EN</span>
-                <span class="pill">KZ</span>
-                <span class="pill">DE</span>
-                <span class="pill">UA</span>
-            </div>
-        </section>
-
-        <section class="section">
-            <div class="paper-sheet">
-                <h2 data-key="services-title">Что я делаю</h2>
-                <ul class="check-list">
-                    <li data-key="serv-1">Перевод сайтов</li>
-                    <li data-key="serv-2">Локализация</li>
-                    <li data-key="serv-3">Сделать сайт легкий</li>
+        <section class="w-full md:w-1/2 h-1/2 md:h-full flex flex-col justify-start md:justify-center items-start px-8 md:px-16 pt-8 md:pt-0">
+            <div class="space-y-8 mb-16">
+                <ul class="space-y-3 text-lg md:text-xl lg:text-2xl font-light text-text-main/80">
+                    <li class="flex items-center gap-3 group lang-item" data-role="переводчик">
+                        <span class="w-1.5 h-1.5 rounded-full group-hover:bg-primary transition-all duration-300"></span>
+                        <span class="group-hover:text-white group-hover:translate-x-1 transition-all duration-300 pointer-events-none">russian</span>
+                    </li>
+                    <li class="flex items-center gap-3 group lang-item" data-role="аудармашы">
+                        <span class="w-1.5 h-1.5 rounded-full group-hover:bg-primary transition-all duration-300"></span>
+                        <span class="group-hover:text-white group-hover:translate-x-1 transition-all duration-300 pointer-events-none">kazakh</span>
+                    </li>
+                    <li class="flex items-center gap-3 group lang-item" data-role="translator">
+                        <span class="w-1.5 h-1.5 rounded-full group-hover:bg-primary transition-all duration-300"></span>
+                        <span class="group-hover:text-white group-hover:translate-x-1 transition-all duration-300 pointer-events-none">english</span>
+                    </li>
+                    <li class="flex items-center gap-3 group lang-item" data-role="übersetzer">
+                        <span class="w-1.5 h-1.5 rounded-full group-hover:bg-primary transition-all duration-300"></span>
+                        <span class="group-hover:text-white group-hover:translate-x-1 transition-all duration-300 pointer-events-none">german</span>
+                    </li>
+                    <li class="flex items-center gap-3 group lang-item" data-role="traductor">
+                        <span class="w-1.5 h-1.5 rounded-full group-hover:bg-primary transition-all duration-300"></span>
+                        <span class="group-hover:text-white group-hover:translate-x-1 transition-all duration-300 pointer-events-none">spanish</span>
+                    </li>
                 </ul>
-                <p class="highlight-text" data-key="price-text">Напиши задачу и я предлогу или ты предложешь мне все равно цену</p>
             </div>
-        </section>
-
-        <section id="projects" class="section">
-            <h2 class="title-blob" data-key="projects-title">Мои проекты</h2>
-            <div class="projects-container">
-                
-                <a href="https://www.mccreations.net/" target="_blank" class="toon-card card-rotate-1 project-link">
-                    <div class="card-header h-blue">MCCreations</div>
-                    <div class="card-body">
-                        <p data-key="proj-mcreations">Перевод и локализация сайта.</p>
-                    </div>
+            <div class="flex flex-col sm:flex-row gap-12 text-base md:text-lg">
+                <a href="mailto:axillux.z@gmail.com"
+                   class="group relative inline-block text-text-muted hover:text-primary transition-colors duration-300">
+                    <span class="relative z-10">email</span>
+                    <span class="absolute left-0 bottom-0 w-full h-[1px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
                 </a>
-
-                <div class="toon-card card-rotate-2">
-                    <div class="card-header h-green">hosts.axillux.com</div>
-                    <div class="card-body">
-                        <p data-key="proj-hosts">Работаю над проектом</p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="contacts" class="section">
-            <div class="contact-blob">
-                <h2 data-key="contact-title">Связаться</h2>
-                <p data-key="contact-sub">Отвечаю обычно в течение дня</p>
-                <div class="contact-actions">
-                    <a href="mailto:axillux.z@gmail.com" class="toon-btn btn-white">Email</a>
-                    <a href="https://discord.com/users/1023270857495281827" target="_blank" class="toon-btn btn-purple">Discord</a>
-                </div>
+                <a href="https://t.me/axilluxz" target="_blank"
+                   class="group relative inline-block text-text-muted hover:text-primary transition-colors duration-300">
+                    <span class="relative z-10">telegram</span>
+                    <span class="absolute left-0 bottom-0 w-full h-[1px] bg-primary origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></span>
+                </a>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p>Axillux</p>
-    </footer>
-    <script src="script.js"></script>
-</body>
+    <script>
+        const roleText = document.getElementById('roleText');
+        const langItems = document.querySelectorAll('.lang-item');
+        const defaultText = "translator";
 
+        langItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                roleText.style.opacity = '0';
+                setTimeout(() => {
+                    roleText.textContent = item.getAttribute('data-role');
+                    roleText.style.opacity = '1';
+                }, 150);
+            });
+
+            item.addEventListener('mouseleave', () => {
+                roleText.style.opacity = '0';
+                setTimeout(() => {
+                    roleText.textContent = defaultText;
+                    roleText.style.opacity = '1';
+                }, 150);
+            });
+        });
+    </script>
+</body>
 </html>
